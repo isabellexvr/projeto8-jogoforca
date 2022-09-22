@@ -8,4 +8,4 @@ function A () {
     )
 }
 
-ReactDOM.render(<A></A>, document.querySelector(".root"))
+ReactDOM.render(<A/>, document.querySelector(".root"))
