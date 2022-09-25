@@ -15,16 +15,16 @@ body {
     height: 600px;
 }
 
-.header {
+/* .header {
     display: flex;
     width: 540px;
-
+    height: 353px;
     justify-content: space-between;
-}
-img {
+} */
+/* img {
     width: 300px;
 
-}
+} */
 .right {
     display: flex;
     flex-direction: column;
@@ -89,6 +89,7 @@ img {
 .keyboard .selected {
     background-color: #9faab5;
     color:#7B828D;
+    pointer-events:none;
 }
 
 .guess {
@@ -109,4 +110,12 @@ img {
     font-size: 12px;
     color: #397BA8;
     font-weight: 700;
+}
+
+.disabled {
+    pointer-events:none;
+}
+
+.hide {
+    display: none;
 }
