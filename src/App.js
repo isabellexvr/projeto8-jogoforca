@@ -9,8 +9,6 @@ import forca6 from "./assets/forca6.png"
 import React, { useState } from 'react'
 import styled from 'styled-components';
 
-console.log(forca0)
-
 export default function App() {
 
     const imgs = {
@@ -54,11 +52,12 @@ export default function App() {
         setEnable("")
         setGallowsAppear("")
         setGreenDisable("disabled")
-        setMistakes(mistakes + 1)
+        setMistakes(1)
         setEnd("")
         setSelected("")
         setEnable("")
         setClicked([])
+        setGallows(forca0)
 
         const shuffledWords = palavras.sort(shuffle)
 
@@ -73,8 +72,6 @@ export default function App() {
         }
 
         setHiddenWord(wordArr)
-
-        console.log(shuffledWord)
 
     }
 
@@ -159,7 +156,7 @@ export default function App() {
         <>
             <Header>
                 <div className="left" data-identifier="game-image">
-                    <img className={`${gallowsAppear}`} src={gallows} />
+                    <img alt="gallows" className={`${gallowsAppear}`} src={gallows} />
                 </div>
                 <div className="right">
                     <button onClick={gameBegins} className={greenDisable} data-identifier="choose-word">Escolher Palavra</button>
@@ -167,8 +164,8 @@ export default function App() {
                 </div>
             </Header>
             <div className="keyboard">
-                {alfabeto.map((letter) =>
-                    <button onClick={() => keyboard(letter)} className={`letter ${enable} ${clicked.includes(letter) ? "selected" : ""} ${selected}`} data-identifier="letter"  >
+                {alfabeto.map((letter, index) =>
+                    <button onClick={() => keyboard(letter)} key={index} className={`letter ${enable} ${clicked.includes(letter) ? "selected" : ""} ${selected}`} data-identifier="letter"  >
                         {letter}
                     </button>
                 )}
