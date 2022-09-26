@@ -1,13 +1,21 @@
-import palavras from "./styles/palavras"
-import forca0 from "./assets/forca0.png"
-import forca1 from "./assets/forca1.png"
-import forca2 from "./assets/forca2.png"
-import forca3 from "./assets/forca3.png"
-import forca4 from "./assets/forca4.png"
-import forca5 from "./assets/forca5.png"
-import forca6 from "./assets/forca6.png"
-import React, { useState } from 'react'
+import palavras from "./palavras";
+
+import forca0 from "./assets/forca0.png";
+import forca1 from "./assets/forca1.png";
+import forca2 from "./assets/forca2.png";
+import forca3 from "./assets/forca3.png";
+import forca4 from "./assets/forca4.png";
+import forca5 from "./assets/forca5.png";
+import forca6 from "./assets/forca6.png";
+
+import React, { useState } from 'react';
+
 import styled from 'styled-components';
+
+import shuffle from "./styles/embaralhador";
+
+import removeAcento from "./removerAcento";
+
 
 export default function App() {
 
@@ -116,7 +124,6 @@ export default function App() {
             won()
         }
 
-
     }
 
     function guessTry() {
@@ -139,8 +146,6 @@ export default function App() {
         setSelected("selected")
         setEnable("disabled")
         setGreenDisable("")
-
-
     }
 
     function lost() {
@@ -176,24 +181,8 @@ export default function App() {
                 <input className={`${enable}`} placeholder="Digite aqui o seu chute..." value={guess} onChange={e => setGuess(e.target.value)} data-identifier="type-guess" ></input>
                 <button onClick={guessTry} className={`${enable}`} data-identifier="guess-button" >Chutar</button>
             </div>
-
         </>
     )
-}
-
-function shuffle() {
-    return Math.random() - 0.5;
-}
-
-function removeAcento(text) {
-    text = text.toLowerCase();
-    text = text.replace(new RegExp('[ÁÀÂÃ]', 'gi'), 'a');
-    text = text.replace(new RegExp('[ÉÈÊ]', 'gi'), 'e');
-    text = text.replace(new RegExp('[ÍÌÎ]', 'gi'), 'i');
-    text = text.replace(new RegExp('[ÓÒÔÕ]', 'gi'), 'o');
-    text = text.replace(new RegExp('[ÚÙÛ]', 'gi'), 'u');
-    text = text.replace(new RegExp('[Ç]', 'gi'), 'c');
-    return text;
 }
 
 const Header = styled.div`

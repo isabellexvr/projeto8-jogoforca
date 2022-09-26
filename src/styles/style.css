@@ -15,16 +15,6 @@ body {
     height: 600px;
 }
 
-/* .header {
-    display: flex;
-    width: 540px;
-    height: 353px;
-    justify-content: space-between;
-} */
-/* img {
-    width: 300px;
-
-} */
 .right {
     display: flex;
     flex-direction: column;
