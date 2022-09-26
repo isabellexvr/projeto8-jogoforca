@@ -28,7 +28,7 @@ export default function App() {
 
     const [enable, setEnable] = useState("disabled")
 
-    const [disable, setDisable] = useState("")
+    const [greenDisable, setGreenDisable] = useState("")
 
     const [gallowsAppear, setGallowsAppear] = useState("hide")
 
@@ -42,13 +42,23 @@ export default function App() {
 
     const [clicked, setClicked] = useState([])
 
+    const [guess, setGuess] = useState("")
+
+    const [end, setEnd] = useState("")
+
+    const [selected, setSelected] = useState("")
+
 
     function gameBegins() {
 
         setEnable("")
         setGallowsAppear("")
-        setDisable("disabled")
+        setGreenDisable("disabled")
         setMistakes(mistakes + 1)
+        setEnd("")
+        setSelected("")
+        setEnable("")
+        setClicked([])
 
         const shuffledWords = palavras.sort(shuffle)
 
@@ -70,8 +80,6 @@ export default function App() {
 
     function keyboard(clickedWord) {
 
-        console.log(word)
-
         const arr = [...clicked, clickedWord]
 
         if (clicked.length < 1) {
@@ -82,12 +90,12 @@ export default function App() {
 
         const index = []
 
-
+        const newWord = [...hiddenWord]
         for (let i = 0; i < word.length; i++) {
 
             if (clickedWord === removeAcento(word[i])) {
                 index.push(i)
-                const newWord = [...hiddenWord]
+
 
                 for (let i = 0; i < index.length; i++) {
 
@@ -99,12 +107,51 @@ export default function App() {
         }
 
         if (!removeAcento(word.toString()).includes(clickedWord)) {
-
             setMistakes(mistakes + 1)
-
             setGallows(imgs[mistakes])
         }
 
+        if (mistakes === 6) {
+            lost()
+        }
+
+        if (newWord.join('') === word.join('')) {
+            won()
+        }
+
+
+    }
+
+    function guessTry() {
+
+        const stringWord = word.join('');
+
+        if (guess === stringWord) {
+            won()
+        }
+
+        if (guess !== stringWord) {
+            lost()
+        }
+
+    }
+
+    function won() {
+        setHiddenWord(word)
+        setEnd("won")
+        setSelected("selected")
+        setEnable("disabled")
+        setGreenDisable("")
+
+
+    }
+
+    function lost() {
+        setHiddenWord(word)
+        setEnd("lost")
+        setSelected("selected")
+        setEnable("disabled")
+        setGreenDisable("")
     }
 
 
@@ -115,13 +162,13 @@ export default function App() {
                     <img className={`${gallowsAppear}`} src={gallows} />
                 </div>
                 <div className="right">
-                    <button onClick={gameBegins} className={disable} data-identifier="choose-word">Escolher Palavra</button>
-                    <p className="" data-identifier="word">{hiddenWord}</p>
+                    <button onClick={gameBegins} className={greenDisable} data-identifier="choose-word">Escolher Palavra</button>
+                    <p className={end} data-identifier="word">{hiddenWord}</p>
                 </div>
             </Header>
             <div className="keyboard">
                 {alfabeto.map((letter) =>
-                    <button onClick={() => keyboard(letter)} className={`letter ${enable} ${clicked.includes(letter) ? "selected" : ""}`} data-identifier="letter"  >
+                    <button onClick={() => keyboard(letter)} className={`letter ${enable} ${clicked.includes(letter) ? "selected" : ""} ${selected}`} data-identifier="letter"  >
                         {letter}
                     </button>
                 )}
@@ -129,8 +176,8 @@ export default function App() {
             </div>
             <div className="guess">
                 <p>Já sei a palavra!</p>
-                <input className={enable} data-identifier="type-guess" ></input>
-                <button className={enable} data-identifier="guess-button" >Chutar</button>
+                <input className={`${enable}`} placeholder="Digite aqui o seu chute..." value={guess} onChange={e => setGuess(e.target.value)} data-identifier="type-guess" ></input>
+                <button onClick={guessTry} className={`${enable}`} data-identifier="guess-button" >Chutar</button>
             </div>
 
         </>
